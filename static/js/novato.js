@@ -19,17 +19,35 @@ var interaction = new THREE.Interaction(renderer, scene, camera);
 
 let pairsWin = [];
 let cnt = 0;
+let pnts = 0;
 
 let checkWin = () => {
     return cnt == 2;
 }
 
 $('#btn-modalGanar').on('click', () => {
-    let nivel = parseInt($('#nivel').text()) + 1
-    if (nivel <= 5)
-        window.location.replace('/juego/novato/' + nivel);
-    else
-        window.location.replace('/resultado');
+    let nivel = parseInt($('#nivel').text()) + 1;
+    let puntos = parseInt($('#puntos').text());
+    if (nivel <= 3){
+
+      window.location.replace('/juego/novato/' + nivel + '/' + puntos);
+      console.log(puntos);
+
+    }
+    else{
+      window.location.replace('/resultado');
+    }
+      
+})
+
+$('#btn-modalPerder').on('click', () => {
+  let nivel = parseInt($('#nivel').text()) + 1;
+  let puntos = parseInt($('#puntos').text());
+  console.log(puntos);
+  if (nivel <= 3)
+      window.location.replace('/juego/novato/' + nivel + '/' + puntos);
+  else
+      window.location.replace('/resultado');
 })
 
 let getRandomNumber = (min, max) => {
@@ -37,36 +55,45 @@ let getRandomNumber = (min, max) => {
 }
 
 let cube = new THREE.Mesh(
-    new THREE.CubeGeometry(1, 1, 1),
-    new THREE.MeshPhongMaterial({ color: 'red'})
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshPhongMaterial({ color: 'white'})
   );
-cube.position.y = 0;
-cube.position.x = 0;
+cube.position.y = getRandomNumber(-15, 15);
+cube.position.x = getRandomNumber(-15, 15);
 cube.position.z = -10;
 cube.name = 'cube';
+cube.cursor = 'pointer';
 cube.on('click', () => {
-    cnt++;
+    cnt++
+    pnts = parseInt( $('#puntos').text()) + 10;
+    $('#puntos').html(pnts)
+    
+    scene.remove(cube)
     if (checkWin()) {
-        //console.log('has ganado')
-        $('#modalGanar').modal('show');
+  
+      $('#modalGanar').modal('show');
+        
     }
  
-})
+});
 
 let cube2 = new THREE.Mesh(
-    new THREE.CubeGeometry(1, 1, 1),
+    new THREE.CubeGeometry(2, 2, 2),
     new THREE.MeshPhongMaterial({ color: 'green'})
   );
-cube2.position.y = 3;
-cube2.position.x = 2;
+cube2.position.y = getRandomNumber(-15, 15);
+cube2.position.x = getRandomNumber(-15, 15);
 cube2.position.z = -10;
 cube2.name = 'cube2';
+cube2.cursor = 'pointer';
 cube2.on('click', () => {
-  cnt++;  
+  cnt++;
+  pnts = parseInt( $('#puntos').text()) + 10;
+  $('#puntos').html(pnts)
+  scene.remove(cube2)  
   if (checkWin()){
-      console.log('has ganado');
-      $('#modalGanar').modal('show');
-
+    
+    $('#modalGanar').modal('show');
   }
 }); 
 
@@ -74,22 +101,26 @@ cube2.on('click', () => {
 pairsWin.push({
     a: cube,
     b: cube2,
-    msg: 'Selecciona el cubo rojo y el cubo verde',
+    msg: 'Selecciona el cubo blanco y el cubo verde',
 });
 
 
 let cube3 = new THREE.Mesh(
-    new THREE.CubeGeometry(1, 1, 1),
-    new THREE.MeshPhongMaterial({ color: 'yellow'})
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshPhongMaterial({ color: 'green'})
   );
-cube3.position.y = 1;
-cube3.position.x = 0;
+cube3.position.y = getRandomNumber(-15, 15);
+cube3.position.x = getRandomNumber(-15, 15);
 cube3.position.z = -10;
-cube3.name = 'cube';
+cube3.name = 'cube3';
+cube3.cursor = 'pointer';
 cube3.on('click', () => {
     cnt++;
+    pnts = parseInt( $('#puntos').text()) + 10;
+    $('#puntos').html(pnts)
+    scene.remove(cube3)
     if (checkWin()) {
-        console.log('has ganado')
+      
         $('#modalGanar').modal('show');
 
     }
@@ -97,17 +128,21 @@ cube3.on('click', () => {
 });
 
 let cube4 = new THREE.Mesh(
-    new THREE.CubeGeometry(1, 1, 1),
+    new THREE.CubeGeometry(2, 2, 2),
     new THREE.MeshPhongMaterial({ color: 'blue'})
   );
-cube4.position.y = 4;
-cube4.position.x = 2;
+cube4.position.y = getRandomNumber(-15, 15);
+cube4.position.x = getRandomNumber(-15, 15);
 cube4.position.z = -10;
-cube4.name = 'cube2';
+cube4.name = 'cube4';
+cube4.cursor = 'pointer';
 cube4.on('click', () => {
-  cnt++;  
+  cnt++;
+  pnts = parseInt($('#puntos').text()) + 10;
+  $('#puntos').html(pnts)  
+  scene.remove(cube4)
   if (checkWin()){
-      console.log('has ganado');
+
       $('#modalGanar').modal('show');
       
   }
@@ -117,22 +152,25 @@ cube4.on('click', () => {
 pairsWin.push({
     a: cube3,
     b: cube4,
-    msg: 'Selecciona el cubo azul y el cubo amarillo',
+    msg: 'Selecciona el cubo azul y el cubo verde',
 });
 
 
 let cube5 = new THREE.Mesh(
-    new THREE.CubeGeometry(1, 1, 1),
-    new THREE.MeshPhongMaterial({ color: 'white'})
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshPhongMaterial({ color: 'blue'})
   );
-cube5.position.y = 4;
-cube5.position.x = 3;
+cube5.position.y = getRandomNumber(-15, 15);
+cube5.position.x = getRandomNumber(-15, 15);
 cube5.position.z = -10;
-cube5.name = 'cube';
+cube5.name = 'cube5';
+cube5.cursor = 'pointer';
 cube5.on('click', () => {
     cnt++;
+    pnts = parseInt( $('#puntos').text()) + 10;
+    scene.remove(cube5)
     if (checkWin()) {
-        console.log('has ganado')
+
         $('#modalGanar').modal('show');
 
     }
@@ -140,17 +178,20 @@ cube5.on('click', () => {
 });
 
 let cube6 = new THREE.Mesh(
-    new THREE.CubeGeometry(1, 1, 1),
-    new THREE.MeshPhongMaterial({ color: 'black'})
+    new THREE.CubeGeometry(2, 2, 2),
+    new THREE.MeshPhongMaterial({ color: 'white'})
   );
-cube6.position.y = 7;
-cube6.position.x = 2;
+cube6.position.y = getRandomNumber(-15, 15);
+cube6.position.x = getRandomNumber(-15, 15);
 cube6.position.z = -10;
-cube6.name = 'cube2';
+cube6.name = 'cube6';
+cube6.cursor = 'pointer';
 cube6.on('click', () => {
   cnt++;  
+  pnts = parseInt( $('#puntos').text() + 10);
+  scene.remove(cube6)
   if (checkWin()){
-      console.log('has ganado');
+
       $('#modalGanar').modal('show');
   }
 }); 
@@ -159,21 +200,28 @@ cube6.on('click', () => {
 pairsWin.push({
     a: cube5,
     b: cube6,
-    msg: 'Selecciona el cubo blanco y el cubo negro',
+    msg: 'Selecciona el cubo blanco y el cubo azul',
 });
 
+let colors_random = ['yellow', 'black', 'red', 'purple'];
 
-let llenarAleatorio = () => {
-    for (let i = 0; i < 10; i++) {
+let llenarAleatorio = (num_fig) => {
+    for (let i = 0; i < num_fig; i++) {
         let cube = new THREE.Mesh(
-            new THREE.CubeGeometry(1, 1, 1),
-            new THREE.MeshPhongMaterial({ color: 'black'})
+            new THREE.CubeGeometry(2, 2, 2),
+            new THREE.MeshPhongMaterial({ color: colors_random[getRandomNumber(0,3)]})
           );
-        cube.position.y = 7 + i;
-        cube.position.x = 2 + i;
+        cube.position.y = getRandomNumber(-15, 15);
+        cube.position.x = getRandomNumber(-15, 15);
         cube.position.z = -10;
         cube.name = 'cube';
+        cube.cursor = 'pointer';
         scene.add(cube);
+        
+        cube.on('click', () => {
+  
+              $('#modalPerder').modal('show');
+        }); 
     }
 }
 
@@ -182,17 +230,25 @@ let crearNivel = () => {
     let ix = getRandomNumber(0, 2);
     scene.add(pairsWin[ix].a);
     scene.add(pairsWin[ix].b);
-    llenarAleatorio();
+    let num_fig = 5;
+    llenarAleatorio(num_fig);
+    $('#msg_play').html(pairsWin[ix].msg);
 }
 
 
 crearNivel();
 
-
+$('#time').html(15);
 setInterval(() => {
-    $('#time').html(parseInt($('#time').text() - 1)):
-    if ($('#time').html() == '0')
-        console.log('hola')
+
+  if(($('#time').text() >= 0) && !checkWin()){
+    $('#time').html(parseInt($('#time').text() - 1))
+  }
+   
+    if ($('#time').html() == '0'){
+      $('#modalPerder').modal('show');
+    }
+      
 }, 1000)
 
 function render() {

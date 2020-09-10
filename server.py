@@ -25,12 +25,12 @@ def login():
 
 @app.route('/resultado')
 def resultado():
-    render_template('results.html')
+    return render_template('results.html')
 
 
-@app.route('/juego/<dificultad>/<nivel>')
-def juego(dificultad, nivel):
-    return render_template('juego.html', dificultad=dificultad, nivel=nivel)
+@app.route('/juego/<dificultad>/<nivel>/<puntos>')
+def juego(dificultad, nivel, puntos):
+    return render_template('juego.html', dificultad=dificultad, nivel=nivel, puntos=puntos)
 
 
 @app.route('/login', methods= ['POST'])

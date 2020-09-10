@@ -22,31 +22,25 @@
     <body style="background-image: url('../static/img/figuras.jpg') ; background-repeat: no-repeat; background-position: 50% 0%;">
         <div class="container">
             <div>
-                <nav>
-                    <div class="nav-wrapper brand-logo center">Aprende jugando</div>
-                </nav>    
+
+              <h1 class="display-1 text-center text-primary font-weight-bold">Aprende jugando</h1>
+ 
             </div>
             
                     
-        <div class="row">
-            <form class="col s12" action="login" method="post">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input id="name" type="text" class="validate" name="username">
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input id="password" type="password" class="validate" name="password">
-                            <label for="password">Password</label>
-                        </div>
-                    </div>
-                </div>    
-                <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                    <i class="material-icons right">send</i>
-                </button>
-            </form>
-        </div>
+        <form action="login" method="post" style="margin-top:300px;" >
+            <div class="form-group">
+              <label for="exampleInputEmail1">Player </label>
+              <input type="text" class="form-control" id="name" name="username"  placeholder="Introduce nombre de jugador">
+              
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Contraseña</label>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Introduce la contraseña secreta">
+            </div>
+
+            <button type="submit" name="action" class="btn btn-primary " >Pulsa para entrar</button>
+          </form>
 
     </div>
 

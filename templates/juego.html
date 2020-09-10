@@ -29,26 +29,52 @@
                 </div>
                 <br>   
 
-                <div> Puntos, tiempo <span id="dificultad">{{ dificultad }}</span></div> estas en el nivel <span id="nivel">{{ nivel }}</span> <span id="time">10</span> </div>
-    
+                <div id="dada-information">
+
+                  <table align="center" class="table table-sm table-dark">
+                    <thead>
+                      <tr class="table-dark text-center">
+                        <th scope="col">Dificultad</th>
+                        <th scope="col">Puntos</th>
+                        <th scope="col">Tiempo</th>
+                        <th scope="col">Nivel</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="table-primary text-center">
+                        <th><span id="dificultad">{{ dificultad }}</span></th>
+                        <td><span id="puntos">{{ puntos }}</span></td>
+                        <td><span id="time">{{ time }} segundos </span></td>
+                        <td><span id="nivel">{{ nivel }}/3</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="bg-success text-white text-center " style="font-size:30px;" id="msg_play"></div>
+                <br>
                 <canvas id="webgl"></canvas>
             </nav>    
         </div>
     </div>
 
  
-<!-- Modal -->
+<!-- Modal  ganar-->
 <div class="modal fade" id="modalGanar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h4 class="modal-title" id="exampleModalLabel">Informacion del nivel</h4>
+
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          Has ganado
+          Has ganado, puedes pasar al siguiente nivel
+        </div>
+        <div id="modal-puntos" class="modal-body">
+          
         </div>
         <div class="modal-footer">
           <button id="btn-modalGanar" type="button" class="btn btn-primary">Ir al siguiente nivel</button>
@@ -56,6 +82,28 @@
       </div>
     </div>
   </div>
+
+   
+<!-- Modal perder-->
+<div class="modal fade" id="modalPerder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel">Informacion del nivel</h4>
+       
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Te has equivocado, pero no te preocupes, pasa al siguiente nivel
+      </div>
+      <div class="modal-footer">
+        <button id="btn-modalPerder" type="button" class="btn btn-primary">Ir al siguiente nivel</button>
+      </div>
+    </div>
+  </div>
+</div>
     
         
     <!--JavaScript at end of body for optimized loading-->
