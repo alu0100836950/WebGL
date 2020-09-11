@@ -25,8 +25,9 @@ let checkWin = () => {
     return cnt == 2;
 }
 
-$('#btn-guardar').on('click', () => {
-  let data = {'score': parseInt($('#puntos').html())}
+
+$('#btn-guardarPerder').on('click', () => {
+  let data = {'score': parseInt($('#puntos').text())}
   console.log(data)
   $.ajax({
       url: '/save',
@@ -37,6 +38,20 @@ $('#btn-guardar').on('click', () => {
          
       }
   })
+})
+
+$('#btn-guardarGanar').on('click', () => {
+let data = {'score': parseInt($('#puntos').text())}
+console.log(data)
+$.ajax({
+    url: '/save',
+    type: 'post',
+    contentType: 'application/json',
+    data: JSON.stringify(data),
+    success: res => {
+       
+    }
+})
 })
 
 $('#btn-mostrarGanar').on('click', () => {
@@ -215,7 +230,8 @@ cube6.name = 'cube6';
 cube6.cursor = 'pointer';
 cube6.on('click', () => {
   cnt++;  
-  pnts = parseInt( $('#puntos').text() + 10);
+  pnts = parseInt( $('#puntos').text()) + 10;
+  $('#puntos').html(pnts)  
   scene.remove(cube6)
   if (checkWin()){
 

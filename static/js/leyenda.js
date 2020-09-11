@@ -25,8 +25,8 @@ let checkWin = () => {
     return cnt == 2;
 }
 
-$('#btn-guardar').on('click', () => {
-    let data = {'score': parseInt($('#puntos').html())}
+$('#btn-guardarPerder').on('click', () => {
+    let data = {'score': parseInt($('#puntos').text())}
     console.log(data)
     $.ajax({
         url: '/save',
@@ -37,6 +37,20 @@ $('#btn-guardar').on('click', () => {
            
         }
     })
+})
+
+$('#btn-guardarGanar').on('click', () => {
+  let data = {'score': parseInt($('#puntos').text())}
+  console.log(data)
+  $.ajax({
+      url: '/save',
+      type: 'post',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      success: res => {
+         
+      }
+  })
 })
 
 $('#btn-mostrarGanar').on('click', () => {
