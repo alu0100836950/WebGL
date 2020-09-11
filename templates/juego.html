@@ -70,15 +70,29 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+
+        {% if nivel == '3' %}
         <div class="modal-body">
-          Has ganado, puedes pasar al siguiente nivel
-        </div>
-        <div id="modal-puntos" class="modal-body">
-          
+          Has llegado al final del juego
         </div>
         <div class="modal-footer">
+
+          <button id="btn-guardar" type="button" class="btn btn-primary">Guardar puntuacion</button>
+      
+          <button id="btn-mostrarPuntosGanar" type="button" class="btn btn-primary">Continuar</button>
+
+        </div>
+        {% else %}
+        <div class="modal-body">
+          Has ganado, pasa al siguiente nivel
+        </div>
+        <div class="modal-footer">
+
           <button id="btn-modalGanar" type="button" class="btn btn-primary">Ir al siguiente nivel</button>
         </div>
+        {% endif %}
+   
+        
       </div>
     </div>
   </div>
@@ -95,15 +109,34 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        Te has equivocado, pero no te preocupes, pasa al siguiente nivel
-      </div>
-      <div class="modal-footer">
-        <button id="btn-modalPerder" type="button" class="btn btn-primary">Ir al siguiente nivel</button>
-      </div>
+
+      {% if nivel == '3' %}
+        <div class="modal-body">
+          Has llegado al final del juego
+        </div>
+        <div class="modal-footer">
+
+          <button id="btn-guardar" type="button" class="btn btn-primary">Guardar puntuacion</button>
+      
+          <button id="btn-mostrarPerder" type="button" class="btn btn-primary">Continuar</button>
+
+        </div>
+        {% else %}
+        <div class="modal-body">
+          Has perdido, pero no te preocupes, pasa al siguiente nivel
+        </div>
+        <div class="modal-footer">
+
+          <button id="btn-modalPerder" type="button" class="btn btn-primary">Ir al siguiente nivel</button>
+        </div>
+        {% endif %}
+
     </div>
   </div>
 </div>
+
+
+
     
         
     <!--JavaScript at end of body for optimized loading-->
@@ -115,6 +148,7 @@
     <script src="/static/build/three.interaction.js"></script>
     <script src="/static/interaction/Interaction.js"></script>
     <script src="/static/js/{{dificultad}}.js"></script>
+  
     
         
     </body>

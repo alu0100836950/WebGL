@@ -23,9 +23,9 @@ def index():
 def login():
     return render_template('login.html')
 
-@app.route('/resultado')
-def resultado():
-    return render_template('results.html')
+@app.route('/resultado/<puntos>')
+def resultado(puntos):
+    return render_template('results.html', puntos=puntos, table = list(mongo.db.scores.find()))
 
 
 @app.route('/juego/<dificultad>/<nivel>/<puntos>')
@@ -45,6 +45,16 @@ def logueo():
     return 'Invalid username or password'
 
 app.secret_key = 'mysecret'
+
+@app.route('/save', methods = ['POST'])
+def guardar_puntos():
+    score = request.get_json()
+    print(score)
+    mongo.db.scores.insert_one({'score': score['score'], 'user': session['username']})
+
+    return render_template('results.html', score=score, table = list(mongo.db.scores.find()))
+
+
 
 if __name__ == '__main__':
     app.run('127.0.0.1', 4000, debug=True)

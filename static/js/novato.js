@@ -25,6 +25,33 @@ let checkWin = () => {
     return cnt == 2;
 }
 
+$('#btn-guardar').on('click', () => {
+  let data = {'score': parseInt($('#puntos').html())}
+  console.log(data)
+  $.ajax({
+      url: '/save',
+      type: 'post',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      success: res => {
+         
+      }
+  })
+})
+
+$('#btn-mostrarGanar').on('click', () => {
+  let puntos = parseInt($('#puntos').text());
+  window.location.replace('/resultado/' + puntos);
+  
+})
+
+$('#btn-mostrarPerder').on('click', () => {
+
+  let puntos = parseInt($('#puntos').text());
+  window.location.replace('/resultado/' + puntos);
+  
+})
+
 $('#btn-modalGanar').on('click', () => {
     let nivel = parseInt($('#nivel').text()) + 1;
     let puntos = parseInt($('#puntos').text());

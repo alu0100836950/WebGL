@@ -25,12 +25,39 @@ let checkWin = () => {
     return cnt == 2;
 }
 
+$('#btn-guardar').on('click', () => {
+    let data = {'score': parseInt($('#puntos').html())}
+    console.log(data)
+    $.ajax({
+        url: '/save',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: res => {
+           
+        }
+    })
+})
+
+$('#btn-mostrarGanar').on('click', () => {
+    let puntos = parseInt($('#puntos').text());
+    window.location.replace('/resultado/' + puntos);
+    
+})
+
+$('#btn-mostrarPerder').on('click', () => {
+
+    let puntos = parseInt($('#puntos').text());
+    window.location.replace('/resultado/' + puntos);
+    
+})
+
 $('#btn-modalGanar').on('click', () => {
     let nivel = parseInt($('#nivel').text()) + 1;
     let puntos = parseInt($('#puntos').text());
     if (nivel <= 3){
 
-      window.location.replace('/juego/novato/' + nivel + '/' + puntos);
+      window.location.replace('/juego/experto/' + nivel + '/' + puntos);
       console.log(puntos);
 
     }
@@ -45,7 +72,7 @@ $('#btn-modalPerder').on('click', () => {
   let puntos = parseInt($('#puntos').text());
   console.log(puntos);
   if (nivel <= 3)
-      window.location.replace('/juego/novato/' + nivel + '/' + puntos);
+      window.location.replace('/juego/experto/' + nivel + '/' + puntos);
   else
       window.location.replace('/resultado');
 })
@@ -77,6 +104,11 @@ cube.on('click', () => {
  
 });
 
+let rotation1 = () => {
+    cube.rotation.x += 0.02;
+    cube.rotation.y += 0.01;
+}
+
 let cube2 = new THREE.Mesh(
     new THREE.CubeGeometry(2, 2, 2),
     new THREE.MeshPhongMaterial({ color: 'green'})
@@ -101,7 +133,7 @@ cube2.on('click', () => {
 pairsWin.push({
     a: cube,
     b: cube2,
-    msg: 'Selecciona el cubo blanco y el cubo verde',
+    msg: 'Selecciona el cubo blanco que gira y el cubo verde',
 });
 
 
@@ -112,7 +144,7 @@ let circle1 = new THREE.Mesh(
 circle1.position.y = getRandomNumber(-15, 15);
 circle1.position.x = getRandomNumber(-15, 15);
 circle1.position.z = -10;
-circle1.name = 'cube3';
+circle1.name = 'circle1';
 circle1.cursor = 'pointer';
 circle1.on('click', () => {
     cnt++;
@@ -148,11 +180,15 @@ cube4.on('click', () => {
   }
 }); 
 
+let rotation2 = () => {
+    cube4.rotation.x += 0.02;
+    cube4.rotation.y += 0.02;
+}
 
 pairsWin.push({
     a: circle1,
     b: cube4,
-    msg: 'Selecciona el cubo azul y el circulo verde',
+    msg: 'Selecciona el cubo azul que gira y el circulo verde',
 });
 
 
@@ -163,7 +199,7 @@ let circle2 = new THREE.Mesh(
 circle2.position.y = getRandomNumber(-15, 15);
 circle2.position.x = getRandomNumber(-15, 15);
 circle2.position.z = -10;
-circle2.name = 'cube3';
+circle2.name = 'circle2';
 circle2.cursor = 'pointer';
 circle2.on('click', () => {
     cnt++;
@@ -185,7 +221,7 @@ let circle3 = new THREE.Mesh(
 circle3.position.y = getRandomNumber(-15, 15);
 circle3.position.x = getRandomNumber(-15, 15);
 circle3.position.z = -10;
-circle3.name = 'cube3';
+circle3.name = 'circle3';
 circle3.cursor = 'pointer';
 circle3.on('click', () => {
     cnt++;
@@ -211,18 +247,18 @@ let colors_random = ['yellow', 'black', 'red', 'purple'];
 
 let llenarAleatorioCube = (num_fig) => {
     for (let i = 0; i < num_fig; i++) {
-        let cube = new THREE.Mesh(
+        let cube_ = new THREE.Mesh(
             new THREE.CubeGeometry(2, 2, 2),
             new THREE.MeshPhongMaterial({ color: colors_random[getRandomNumber(0,3)]})
           );
-        cube.position.y = getRandomNumber(-15, 15);
-        cube.position.x = getRandomNumber(-15, 15);
-        cube.position.z = -10;
-        cube.name = 'cube';
-        cube.cursor = 'pointer';
-        scene.add(cube);
+        cube_.position.y = getRandomNumber(-15, 15);
+        cube_.position.x = getRandomNumber(-15, 15);
+        cube_.position.z = -10;
+        cube_.name = 'cube';
+        cube_.cursor = 'pointer';
+        scene.add(cube_);
         
-        cube.on('click', () => {
+        cube_.on('click', () => {
   
               $('#modalPerder').modal('show');
         }); 
@@ -237,7 +273,7 @@ let llenarAleatorioCircle = (num_fig) => {
         circle.position.y = getRandomNumber(-15, 15);
         circle.position.x = getRandomNumber(-15, 15);
         circle.position.z = -10;
-        circle.name = 'cube';
+        circle.name = 'circle';
         circle.cursor = 'pointer';
         scene.add(circle);
         
@@ -249,13 +285,13 @@ let llenarAleatorioCircle = (num_fig) => {
 }
 
 
-
+let ix;
 let crearNivel = () => {
-    let ix = getRandomNumber(0, 2);
+    ix = getRandomNumber(0, 2);
     scene.add(pairsWin[ix].a);
     scene.add(pairsWin[ix].b);
-    let num_fig_cube = 4;
-    let num_fig_circle = 4;
+    let num_fig_cube = 3;
+    let num_fig_circle = 3;
     llenarAleatorioCube(num_fig_cube);
     llenarAleatorioCircle(num_fig_circle);
     $('#msg_play').html(pairsWin[ix].msg);
@@ -263,6 +299,9 @@ let crearNivel = () => {
 
 
 crearNivel();
+
+
+
 
 $('#time').html(10);
 setInterval(() => {
@@ -277,9 +316,14 @@ setInterval(() => {
       
 }, 1000)
 
+
+
+
 function render() {
     renderer.render(scene, camera);
 
+    rotation1();
+    rotation2();
 
     requestAnimationFrame(render);
   }
