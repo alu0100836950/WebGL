@@ -26,7 +26,7 @@ let checkWin = () => {
 }
 
 $('#btn-guardar').on('click', () => {
-    let data = {'score': parseInt($('#puntos').html())}
+    let data = {'score': parseInt($('#puntos').text())}
     console.log(data)
     $.ajax({
         url: '/save',
@@ -34,7 +34,7 @@ $('#btn-guardar').on('click', () => {
         contentType: 'application/json',
         data: JSON.stringify(data),
         success: res => {
-           
+            
         }
     })
 })
